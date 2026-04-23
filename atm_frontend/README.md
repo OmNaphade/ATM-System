@@ -1,70 +1,146 @@
-# Getting Started with Create React App
+# ATM Frontend Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React-based frontend application for the ATM (Automated Teller Machine) system, providing a user-friendly interface for account management and transactions.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Authentication**: Secure login with account number and PIN
+- **Dashboard**: Overview of account information and recent transactions
+- **Deposit**: Add funds to your account
+- **Withdraw**: Withdraw funds from your account
+- **Profile Management**: View and update user profile information
+- **Responsive Design**: Mobile-friendly interface using Tailwind CSS
+- **Real-time Updates**: Automatic token refresh and session management
 
-### `npm start`
+## Technology Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React 18**: Modern JavaScript library for building user interfaces
+- **React Router**: Declarative routing for React applications
+- **Axios**: HTTP client for API communication with interceptors for JWT handling
+- **Tailwind CSS**: Utility-first CSS framework for styling
+- **Create React App**: Build setup and development server
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js 16+
+- npm or yarn
+- Backend server running on `http://localhost:8080`
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd atm_frontend
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-### `npm run eject`
+   The application will open at [http://localhost:3000](http://localhost:3000)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Available Scripts
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `npm start` - Runs the app in development mode
+- `npm test` - Launches the test runner
+- `npm run build` - Builds the app for production
+- `npm run eject` - Ejects from Create React App (irreversible)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+src/
+├── api/
+│   ├── authApi.js      # Authentication API calls
+│   ├── accountApi.js   # Account management API calls
+│   ├── transactionApi.js # Transaction API calls
+│   └── axios.js        # Axios configuration with interceptors
+├── components/
+│   ├── Navbar.jsx      # Navigation bar
+│   ├── Sidebar.jsx     # Sidebar navigation
+│   └── Footer.jsx      # Footer component
+├── layouts/
+│   └── MainLayout.jsx  # Main application layout
+├── pages/
+│   ├── Login.jsx       # Login page
+│   ├── Dashboard.jsx   # Dashboard page
+│   ├── Deposit.jsx     # Deposit page
+│   ├── Withdraw.jsx    # Withdraw page
+│   └── Profile.jsx     # Profile page
+├── App.jsx             # Main application component
+├── index.js            # Application entry point
+└── index.css           # Global styles
+```
 
-## Learn More
+## API Integration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The frontend communicates with the backend API at `http://localhost:8080/api`. Key features include:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **JWT Token Management**: Automatic token storage and refresh
+- **Error Handling**: Centralized error handling for API responses
+- **Loading States**: User feedback during API calls
+- **Authentication Guards**: Protected routes requiring authentication
 
-### Code Splitting
+## Security Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Secure Authentication**: JWT-based login with automatic token refresh
+- **Session Persistence**: Users remain logged in across browser sessions
+- **Secure API Calls**: All requests include proper authorization headers
+- **Input Validation**: Client-side validation for forms and inputs
 
-### Analyzing the Bundle Size
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Production Build
 
-### Making a Progressive Web App
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This creates a `build` folder with optimized production files.
 
-### Advanced Configuration
+### Serving the Build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The build can be served using any static file server:
 
-### Deployment
+```bash
+npm install -g serve
+serve -s build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Docker Deployment
 
-### `npm run build` fails to minify
+```dockerfile
+FROM nginx:alpine
+COPY build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Environment Configuration
+
+Create a `.env` file in the root directory:
+
+```env
+REACT_APP_API_BASE_URL=http://localhost:8080/api
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

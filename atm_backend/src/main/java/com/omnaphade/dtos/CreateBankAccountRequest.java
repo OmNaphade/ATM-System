@@ -12,10 +12,18 @@ import lombok.*;
 @ToString
 @Transactional
 public class CreateBankAccountRequest {
+	@NotBlank(message = "Account number is required")
 	private String accountNumber;
-	private AccountType accountType;
+
+	@NotNull(message = "Account type is required")
+
+	@NotBlank(message = "Bank name is required")
 	private String bankName;
+
 	private double balance;
-	private Long userId; // Link to existing user
+
+	@NotNull(message = "User ID is required")
+
+	@NotBlank(message = "PIN is required")
 	private String pin;
 }

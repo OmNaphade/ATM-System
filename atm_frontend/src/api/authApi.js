@@ -1,13 +1,22 @@
 import axios from "./axios";
 
-// Login by account number (e.g., SBIN10001) and PIN
+// Login by account number and PIN
 export const login = async (accountNumber, pin) => {
-  const res = await axios.get(`/accounts/number/${accountNumber}`);
+  const res = await axios.post("/auth/login", { accountNumber, pin });
+  const { token, refreshToken } = res.data;
+  localStorage.setItem("token", token);
+  localStorage.setItem("refreshToken", refreshToken);
+  return res.data;
+};
 
-  // Check PIN
-  if (res.data && res.data.pin === pin) {
-    return res.data;
-  } else {
-    throw new Error("Invalid credentials");
-  }
+// Logout
+export const logout = async () => {
+  await axios.post("/auth/logout");
+  localStorage.removeItem("token");
+  localStorage.removeItem("refreshToken");
+};
+
+// Check if user is authenticated
+export const isAuthenticated = () => {
+  return !!localStorage.getItem("token");
 };

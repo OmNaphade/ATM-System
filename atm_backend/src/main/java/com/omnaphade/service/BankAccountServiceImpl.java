@@ -10,6 +10,7 @@ import com.omnaphade.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,10 +32,13 @@ public class BankAccountServiceImpl implements IBankAccountService {
 
 	private UserRepository userRepo;
 
-    public BankAccountServiceImpl(BankAccountRepository accountrepo, ModelMapper mapper, UserRepository userRepo) {
+	private PasswordEncoder passwordEncoder;
+
+    public BankAccountServiceImpl(BankAccountRepository accountrepo, ModelMapper mapper, UserRepository userRepo, PasswordEncoder passwordEncoder) {
         Accountrepo = accountrepo;
         this.mapper = mapper;
         this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -46,7 +50,7 @@ public class BankAccountServiceImpl implements IBankAccountService {
 		acct.setBankName(req.getBankName());
 		acct.setBalance(BigDecimal.valueOf(req.getBalance()));
 		acct.setCreationDate(LocalDate.now());
-		acct.setPin(req.getPin());
+		acct.setPin(passwordEncoder.encode(req.getPin()));
 		acct.setUser(user);
 		BankAccount saved = Accountrepo.save(acct);
 		logger.info("Created new bank account with ID: {}", saved.getAccountId());
@@ -98,7 +102,7 @@ public class BankAccountServiceImpl implements IBankAccountService {
 		acct.setBalance(BigDecimal.valueOf(req.getBalance()));
 		User user = userRepo.findById(req.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		acct.setUser(user);
-		acct.setPin(req.getPin());
+		acct.setPin(passwordEncoder.encode(req.getPin()));
 		BankAccount updated = Accountrepo.save(acct);
 		logger.info("Updated bank account with ID: {}", id);
 		return mapper.map(updated, BankAccountDTO.class);

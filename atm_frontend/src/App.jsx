@@ -6,8 +6,6 @@ import Deposit from "./pages/Deposit";
 import Withdraw from "./pages/Withdraw";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
-import Transfer from "./pages/Transfer";
-// import Transactions from "./pages/Transactions";
 
 function App() {
   return (
@@ -22,8 +20,6 @@ function App() {
           <Route path="/withdraw" element={<Withdraw />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/transfer" element={<Transfer />} />
-          {/* <Route path="/transactions" element={<Transactions />} /> */}
         </Route>
 
       </Routes>

@@ -21,7 +21,9 @@ A comprehensive Spring Boot-based backend system for ATM (Automated Teller Machi
 
 - **User Management**: Create, read, update, and delete user accounts
 - **Bank Account Management**: Handle multiple accounts per user with different types
-- **Transaction Processing**: Support for deposits, withdrawals, and transfers
+- **Transaction Processing**: Support for deposits and withdrawals (transfers available in backend only)
+- **Authentication & Security**: JWT-based authentication with encrypted passwords and PINs
+- **Session Management**: Persistent login sessions with automatic token refresh
 - **Idempotent Transactions**: Prevent duplicate transaction processing
 - **Concurrent Safety**: Pessimistic locking for financial operations
 - **Asynchronous Processing**: Background operations for bulk deletions
@@ -56,6 +58,7 @@ A comprehensive Spring Boot-based backend system for ATM (Automated Teller Machi
 - **Maven**: Dependency management and build tool
 - **Lombok**: Code generation for boilerplate
 - **ModelMapper**: Object mapping between DTOs and entities
+- **JWT (JJWT)**: JSON Web Token for secure authentication
 - **Docker Compose**: Containerized database setup
 
 ### Logging & Monitoring
@@ -139,6 +142,35 @@ CREATE TABLE transactions (
 ### Base URL
 ```
 http://localhost:8080/api
+```
+
+### Authentication APIs
+
+#### Login
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "accountNumber": "1234567890",
+  "pin": "1234"
+}
+```
+
+#### Refresh Token
+```http
+POST /api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "your_refresh_token_here"
+}
+```
+
+#### Logout
+```http
+POST /api/auth/logout
+Authorization: Bearer your_jwt_token
 ```
 
 ### User Management APIs
@@ -754,12 +786,14 @@ volumes:
 
 ## Security Considerations
 
-- Passwords should be hashed (consider BCrypt)
-- Input validation and sanitization
-- Rate limiting for API endpoints
-- HTTPS in production
-- Database credentials encryption
-- CORS configuration for frontend integration
+- **Password Encryption**: User passwords and account PINs are encrypted using BCrypt hashing
+- **JWT Authentication**: Secure token-based authentication with automatic refresh
+- **Session Management**: Persistent login sessions with configurable expiration
+- **Input Validation**: Comprehensive validation and sanitization
+- **Rate Limiting**: API endpoint rate limiting for security
+- **HTTPS**: Secure communication in production environments
+- **Database Credentials**: Encrypted database connection credentials
+- **CORS Configuration**: Proper cross-origin resource sharing setup for frontend integration
 
 ## Performance Optimization
 
@@ -783,5 +817,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**Note**: This documentation provides a comprehensive overview of the ATM Backend Application. For detailed API specifications, refer to the Swagger UI at `http://localhost:8080/swagger-ui.html` when the application is running.</content>
-<parameter name="filePath">d:\PRACTICE\atm_backend\README.md
+**Note**: This documentation provides a comprehensive overview of the ATM Backend Application. For detailed API specifications, refer to the Swagger UI at `http://localhost:8080/swagger-ui.html` when the application is running.

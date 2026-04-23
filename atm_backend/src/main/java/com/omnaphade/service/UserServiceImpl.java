@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
@@ -26,10 +27,12 @@ public class UserServiceImpl implements IUserService {
 
 	private final UserRepository userRepo;
 	private final DataSource dataSource;
+	private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepo, DataSource dataSource) {
+    public UserServiceImpl(UserRepository userRepo, DataSource dataSource, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.dataSource = dataSource;
+        this.passwordEncoder = passwordEncoder;
     }
 
     private UserDTO mapToDTO(User user) {
@@ -82,7 +85,7 @@ public class UserServiceImpl implements IUserService {
 		User user = new User();
 		user.setName(req.getName());
 		user.setEmail(req.getEmail());
-		user.setPassword(req.getPassword());
+		user.setPassword(passwordEncoder.encode(req.getPassword()));
 		user.setRole(Role.CUSTOMER);
 
 		User savedUser = userRepo.save(user);
@@ -100,7 +103,7 @@ public class UserServiceImpl implements IUserService {
 		User user = optionalUser.get();
 		user.setName(req.getName());
 		user.setEmail(req.getEmail());
-		user.setPassword(req.getPassword());
+		user.setPassword(passwordEncoder.encode(req.getPassword()));
 		logger.info("Updated user with ID: {}", id);
 		return mapToDTO(user);
 	}
