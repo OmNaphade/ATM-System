@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================= GLOBAL ================= */
+body {
+  @apply bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen;
+}
+
+/* ================= LAYOUT ================= */
+.container-center {
+  @apply flex items-center justify-center min-h-screen;
+}
+
+.page-container {
+  @apply p-6 max-w-6xl mx-auto;
+}
+
+.section {
+  @apply mt-6;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  @apply flex justify-between items-center bg-slate-900 px-6 py-4 shadow-md;
+}
+
+.nav-title {
+  @apply text-xl font-bold text-blue-400;
+}
+
+.nav-link {
+  @apply text-slate-300 hover:text-white cursor-pointer;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  @apply w-64 bg-slate-900 h-screen p-4 fixed;
+}
+
+.sidebar-item {
+  @apply p-3 rounded-lg cursor-pointer hover:bg-slate-700;
+}
+
+.sidebar-active {
+  @apply bg-blue-600;
+}
+
+/* ================= CARDS ================= */
+.card {
+  @apply bg-slate-800 p-6 rounded-2xl shadow-lg;
+}
+
+.card-header {
+  @apply text-lg font-semibold mb-4;
+}
+
+.card-hover {
+  @apply hover:scale-105 transition transform;
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+  @apply px-4 py-2 rounded-lg font-semibold transition duration-200;
+}
+
+.btn-primary {
+  @apply btn bg-blue-500 hover:bg-blue-600;
+}
+
+.btn-success {
+  @apply btn bg-green-500 hover:bg-green-600;
+}
+
+.btn-danger {
+  @apply btn bg-red-500 hover:bg-red-600;
+}
+
+.btn-secondary {
+  @apply btn bg-slate-600 hover:bg-slate-700;
+}
+
+.btn-outline {
+  @apply btn border border-slate-500 hover:bg-slate-700;
+}
+
+.btn-disabled {
+  @apply btn bg-gray-500 cursor-not-allowed;
+}
+
+/* ================= FORMS ================= */
+.form-group {
+  @apply mb-4;
+}
+
+.label {
+  @apply block mb-1 text-sm text-slate-300;
+}
+
+.input {
+  @apply w-full p-2 rounded-lg bg-slate-700 outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.input-error {
+  @apply border border-red-500;
+}
+
+.select {
+  @apply w-full p-2 rounded-lg bg-slate-700;
+}
+
+.textarea {
+  @apply w-full p-2 rounded-lg bg-slate-700;
+}
+
+/* ================= TABLE ================= */
+.table {
+  @apply w-full border-collapse mt-4;
+}
+
+.table th {
+  @apply text-left p-3 bg-slate-700;
+}
+
+.table td {
+  @apply p-3 border-b border-slate-600;
+}
+
+.table-row-hover {
+  @apply hover:bg-slate-700;
+}
+
+/* ================= ALERTS ================= */
+.alert {
+  @apply p-3 rounded-lg mb-4;
+}
+
+.alert-success {
+  @apply alert bg-green-500;
+}
+
+.alert-error {
+  @apply alert bg-red-500;
+}
+
+.alert-warning {
+  @apply alert bg-yellow-500 text-black;
+}
+
+/* ================= BADGES ================= */
+.badge {
+  @apply px-2 py-1 rounded text-sm;
+}
+
+.badge-success {
+  @apply badge bg-green-500;
+}
+
+.badge-danger {
+  @apply badge bg-red-500;
+}
+
+.badge-info {
+  @apply badge bg-blue-500;
+}
+
+/* ================= MODAL ================= */
+.modal-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center;
+}
+
+.modal {
+  @apply bg-slate-800 p-6 rounded-xl w-96;
+}
+
+/* ================= LIST ================= */
+.list {
+  @apply space-y-2;
+}
+
+.list-item {
+  @apply p-3 bg-slate-700 rounded-lg;
+}
+
+/* ================= GRID ================= */
+.grid-2 {
+  @apply grid grid-cols-2 gap-4;
+}
+
+.grid-3 {
+  @apply grid grid-cols-3 gap-4;
+}
+
+/* ================= ATM SPECIFIC ================= */
+.balance-card {
+  @apply card text-center;
+}
+
+.balance-amount {
+  @apply text-3xl font-bold text-green-400;
+}
+
+.transaction-credit {
+  @apply text-green-400;
+}
+
+.transaction-debit {
+  @apply text-red-400;
+}
+
+/* ================= LOADER ================= */
+.loader {
+  @apply border-4 border-slate-600 border-t-blue-500 rounded-full w-6 h-6 animate-spin;
+}
+
+/* ================= SCROLL ================= */
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #1e293b;
+}

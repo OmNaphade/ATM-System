@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: atm_db
+      POSTGRES_USER: om_2026
+      POSTGRES_PASSWORD: manager2026
+    ports:
+      - "5432:5432"
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/atm_db
+      SPRING_DATASOURCE_USERNAME: om_2026
+      SPRING_DATASOURCE_PASSWORD: manager2026
+  frontend:
+    build: ../atm_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
