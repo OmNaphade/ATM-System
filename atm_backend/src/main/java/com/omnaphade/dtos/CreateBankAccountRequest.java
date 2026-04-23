@@ -1,7 +1,8 @@
 package com.omnaphade.dtos;
 
-import com.omnaphade.entites.AccountType;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
